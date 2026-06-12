@@ -255,6 +255,12 @@ export type Database = {
           {
             foreignKeyName: "client_contacts_client_id_fkey"
             columns: ["client_id"]
+            referencedRelation: "v_hosting_prices"
+            referencedColumns: ["client_id"]
+          },
+          {
+            foreignKeyName: "client_contacts_client_id_fkey"
+            columns: ["client_id"]
             referencedRelation: "v_unbilled_exposure"
             referencedColumns: ["client_id"]
           },
@@ -287,6 +293,12 @@ export type Database = {
             foreignKeyName: "client_credit_policies_client_id_fkey"
             columns: ["client_id"]
             referencedRelation: "v_hosting_margins"
+            referencedColumns: ["client_id"]
+          },
+          {
+            foreignKeyName: "client_credit_policies_client_id_fkey"
+            columns: ["client_id"]
+            referencedRelation: "v_hosting_prices"
             referencedColumns: ["client_id"]
           },
           {
@@ -348,6 +360,12 @@ export type Database = {
             foreignKeyName: "client_pricing_client_id_fkey"
             columns: ["client_id"]
             referencedRelation: "v_hosting_margins"
+            referencedColumns: ["client_id"]
+          },
+          {
+            foreignKeyName: "client_pricing_client_id_fkey"
+            columns: ["client_id"]
+            referencedRelation: "v_hosting_prices"
             referencedColumns: ["client_id"]
           },
           {
@@ -417,6 +435,12 @@ export type Database = {
           {
             foreignKeyName: "client_subscriptions_client_id_fkey"
             columns: ["client_id"]
+            referencedRelation: "v_hosting_prices"
+            referencedColumns: ["client_id"]
+          },
+          {
+            foreignKeyName: "client_subscriptions_client_id_fkey"
+            columns: ["client_id"]
             referencedRelation: "v_unbilled_exposure"
             referencedColumns: ["client_id"]
           },
@@ -430,6 +454,12 @@ export type Database = {
             foreignKeyName: "client_subscriptions_product_id_fkey"
             columns: ["product_id"]
             referencedRelation: "v_hosting_margins"
+            referencedColumns: ["product_id"]
+          },
+          {
+            foreignKeyName: "client_subscriptions_product_id_fkey"
+            columns: ["product_id"]
+            referencedRelation: "v_hosting_prices"
             referencedColumns: ["product_id"]
           },
         ]
@@ -745,6 +775,12 @@ export type Database = {
           {
             foreignKeyName: "hour_blocks_client_id_fkey"
             columns: ["client_id"]
+            referencedRelation: "v_hosting_prices"
+            referencedColumns: ["client_id"]
+          },
+          {
+            foreignKeyName: "hour_blocks_client_id_fkey"
+            columns: ["client_id"]
             referencedRelation: "v_unbilled_exposure"
             referencedColumns: ["client_id"]
           },
@@ -822,6 +858,12 @@ export type Database = {
             foreignKeyName: "invoice_lines_product_id_fkey"
             columns: ["product_id"]
             referencedRelation: "v_hosting_margins"
+            referencedColumns: ["product_id"]
+          },
+          {
+            foreignKeyName: "invoice_lines_product_id_fkey"
+            columns: ["product_id"]
+            referencedRelation: "v_hosting_prices"
             referencedColumns: ["product_id"]
           },
           {
@@ -924,6 +966,12 @@ export type Database = {
           {
             foreignKeyName: "invoices_client_id_fkey"
             columns: ["client_id"]
+            referencedRelation: "v_hosting_prices"
+            referencedColumns: ["client_id"]
+          },
+          {
+            foreignKeyName: "invoices_client_id_fkey"
+            columns: ["client_id"]
             referencedRelation: "v_unbilled_exposure"
             referencedColumns: ["client_id"]
           },
@@ -983,6 +1031,12 @@ export type Database = {
             foreignKeyName: "kicare_contracts_client_id_fkey"
             columns: ["client_id"]
             referencedRelation: "v_hosting_margins"
+            referencedColumns: ["client_id"]
+          },
+          {
+            foreignKeyName: "kicare_contracts_client_id_fkey"
+            columns: ["client_id"]
+            referencedRelation: "v_hosting_prices"
             referencedColumns: ["client_id"]
           },
           {
@@ -1388,6 +1442,12 @@ export type Database = {
             foreignKeyName: "projects_client_id_fkey"
             columns: ["client_id"]
             referencedRelation: "v_hosting_margins"
+            referencedColumns: ["client_id"]
+          },
+          {
+            foreignKeyName: "projects_client_id_fkey"
+            columns: ["client_id"]
+            referencedRelation: "v_hosting_prices"
             referencedColumns: ["client_id"]
           },
           {
@@ -2107,6 +2167,12 @@ export type Database = {
           {
             foreignKeyName: "work_orders_client_id_fkey"
             columns: ["client_id"]
+            referencedRelation: "v_hosting_prices"
+            referencedColumns: ["client_id"]
+          },
+          {
+            foreignKeyName: "work_orders_client_id_fkey"
+            columns: ["client_id"]
             referencedRelation: "v_unbilled_exposure"
             referencedColumns: ["client_id"]
           },
@@ -2182,6 +2248,12 @@ export type Database = {
           {
             foreignKeyName: "hour_blocks_client_id_fkey"
             columns: ["client_id"]
+            referencedRelation: "v_hosting_prices"
+            referencedColumns: ["client_id"]
+          },
+          {
+            foreignKeyName: "hour_blocks_client_id_fkey"
+            columns: ["client_id"]
             referencedRelation: "v_unbilled_exposure"
             referencedColumns: ["client_id"]
           },
@@ -2224,6 +2296,19 @@ export type Database = {
         }
         Relationships: []
       }
+      v_hosting_prices: {
+        Row: {
+          category: string | null
+          client_id: string | null
+          client_name: string | null
+          price: number | null
+          product_id: string | null
+          product_name: string | null
+          qty: number | null
+          renewal_date: string | null
+        }
+        Relationships: []
+      }
       v_kicare_profitability: {
         Row: {
           client_id: string | null
@@ -2254,6 +2339,12 @@ export type Database = {
           {
             foreignKeyName: "kicare_contracts_client_id_fkey"
             columns: ["client_id"]
+            referencedRelation: "v_hosting_prices"
+            referencedColumns: ["client_id"]
+          },
+          {
+            foreignKeyName: "kicare_contracts_client_id_fkey"
+            columns: ["client_id"]
             referencedRelation: "v_unbilled_exposure"
             referencedColumns: ["client_id"]
           },
@@ -2272,6 +2363,9 @@ export type Database = {
       }
     }
     Functions: {
+      fn_current_role: { Args: never; Returns: string }
+      fn_is_manager_up: { Args: never; Returns: boolean }
+      fn_is_staff: { Args: never; Returns: boolean }
       fn_refresh_executive_kpis: { Args: never; Returns: undefined }
       fn_resolve_rate: {
         Args: { p_project_id: string; p_user_id: string; p_work_date: string }
