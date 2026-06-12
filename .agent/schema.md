@@ -51,7 +51,8 @@ company\_config   \-- SINGLETON, exactly one row, seed on first deploy
   timesheet\_review\_deadline text     \-- e.g. 'MON\_12:00'  
   daily\_digest\_time text DEFAULT '18:00'  
   monthly\_billing\_day int DEFAULT 1  \-- OQ-11: company-wide default  
-  reminder\_schedule jsonb            \-- { minus3d, due, plus7, plus14, plus30 } on/off \+ day offsets
+  reminder\_schedule jsonb            \-- { minus3d, due, plus7, plus14, plus30 } on/off \+ day offsets  
+  kicare\_buckets\_counted text DEFAULT 'a\_b' CHECK IN (a, a\_b)   \-- ADR-019 / C-3 flag; finance must confirm before Phase 2
 
 profit\_centers  
   id uuid PK  
@@ -124,7 +125,8 @@ sub\_projects   \-- OPTIONAL level, aka SOW
   status text CHECK IN (active, on\_hold, completed, archived)  
   start\_date date  
   end\_date date  
-  notes text
+  notes text  
+  UNIQUE (project\_id, id)            \-- target of tickets composite FK (migration 0003)
 
 project\_rates   \-- per-developer per-project overrides, multiple rows allowed  
   id uuid PK  
@@ -169,7 +171,8 @@ tickets   \-- billing unit
   fm\_ticket\_id text                  \-- FM-generated TicketID, written back by WF-009 on ticket approval  
   created\_by uuid FK users  
   created\_at timestamptz DEFAULT now()  
-  updated\_at timestamptz DEFAULT now()
+  updated\_at timestamptz DEFAULT now()  
+  COMPOSITE FK (project\_id, sub\_project\_id) REFERENCES sub\_projects (project\_id, id)   \-- CLAUDE.md rule 9: sub\_project must belong to the same project (migration 0003)
 
 tasks   \-- execution unit (formerly subtask)  
   id uuid PK  
@@ -212,7 +215,7 @@ time\_entries   \-- UI label: Activities
   end\_time timestamptz               \-- set by timer only  
   state text CHECK IN (draft, submitted, approved, rejected, billed, void, locked) DEFAULT 'draft'  
   billable boolean NOT NULL  
-  billable\_label text                \-- "Billable" | "Non-Billable" — exact FM-contract values  
+  billable\_label text                \-- "Billable" | "Non-Billable" — exact FM-contract values; GENERATED ALWAYS from billable (migration 0004), cannot drift  
   description text                   \-- required when billable \= true  
   activity\_type text                 \-- inherits from task, overridable  
   rate\_applied numeric(12,2)         \-- IMMUTABLE, stamped at invoice time only  
@@ -539,3 +542,17 @@ Activity script "Automate Activity Creation" JSON param:
   Tags          ← comma-separated ticket tags
 
 Dedup: FM script does exact-match find on Activity::ClickUp\_Act before creating. Re-delivery \= no-op.
+\#\# Implementation status (migrations 0001–0010, applied 2026-06-12)
+
+Migrations live in /supabase/migrations (timestamped 20260612\*). Types: src/lib/database.types.ts (regenerate: npm run gen:types).  
+DB-level enforcement shipped in 0008:  
+  \- fn\_audit() trigger → audit\_logs on INSERT/UPDATE/DELETE of: client\_pricing, time\_entries, invoices, payments, hour\_blocks, tickets, users, client\_credit\_policies, products, kicare\_contracts  
+  \- audit\_logs, mcp\_audit\_log, payment\_reminders: UPDATE/DELETE revoked from anon, authenticated, service\_role  
+  \- fn\_enforce\_append\_only() → client\_pricing.price\_history, time\_entries.edit\_history, hour\_blocks.alerts\_sent  
+  \- fn\_enforce\_immutable() → time\_entries.rate\_applied, invoices.invoice\_no, payments.cayan\_transaction\_id  
+Other notes:  
+  \- invoice\_no\_seq sequence created in 0006 (numbering: company\_config.invoice\_prefix \+ counter)  
+  \- RLS ENABLED on all 41 tables in 0009 with zero policies \= default deny; role policies ship with P1-03  
+  \- All plain views use security\_invoker \= true; v\_executive\_kpis is MATERIALIZED with anon/authenticated access revoked (served server-side); refresh via fn\_refresh\_executive\_kpis() (service role only)  
+  \- v\_true\_margin NOT created (blocked on C-10 finance sign-off)  
+  \- fn\_resolve\_rate(project, user, work\_date) implements the rate-resolution cascade

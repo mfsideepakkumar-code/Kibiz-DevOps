@@ -3,7 +3,11 @@
 ## Phase 1 — Foundation
 
 - [x] P1-01: Supabase project setup, CLI, repo scaffold, and .agent/ workspace files (branch: p1-01-scaffold · done 2026-06-12 · local merge, no remote configured yet)
-- [ ] P1-02: Full schema migrations 0001–0010 (incorporating composite keys for subprojects & audit triggers) and generated types committed
+- [x] P1-02: Full schema migrations 0001–0010 (incorporating composite keys for subprojects & audit triggers) and generated types committed (branch: p1-02-schema · done 2026-06-12 · local merge, no remote configured yet)
+  - OPEN QUESTION (finance — do not guess): categories.default_billable seeded NULL for all 9 categories. Which categories default to billable?
+  - OPEN QUESTION (stakeholder): profit_centers NOT seeded — schema.md list is marked "e.g."; need the confirmed centre list (prd.md §6).
+  - OPEN QUESTION (OQ-1): v_executive_kpis ships without Utilisation and Idle Cost — formulas pending the original dashboard PRD. Do not build until OQ-1 resolves.
+  - NOTE: KiCare per-ticket exclude toggle has no schema field yet (no column in schema.md); expected with P2-03 KiCare classification.
 - [ ] P1-03: Auth & RBAC (Supabase Auth, role-based routing, RLS policies, server-side role checks)
 - [ ] P1-04: Design system (shadcn/ui tokens, formatters, shared table/form/card components)
 - [ ] P1-05: Single-screen admin (clients + projects + sub_projects + engagement + pricing summary)
