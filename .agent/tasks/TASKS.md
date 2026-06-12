@@ -12,7 +12,8 @@
   - OPEN QUESTION (stakeholder): project_lead row-scoping — security.md says "within own projects" but no project-membership model exists in schema.md (no members table; assignment via tasks? project_rates?). project_lead = developer-level access until resolved.
   - ACTION REQUIRED (dashboard, cannot be done in SQL): disable public email signups in Supabase dashboard (Auth → Providers) before pilot. DB-level defense (signups land inactive) is in place.
   - NOTE: select * fails for non-admins on users/project_rates/products (column-level grants) — always select explicit columns; see security.md implementation notes.
-- [ ] P1-04: Design system (shadcn/ui tokens, formatters, shared table/form/card components)
+- [x] P1-04: Design system (shadcn/ui tokens, formatters, shared table/form/card components) (branch: p1-04-design-system · done 2026-06-13 · local merge, no remote configured yet)
+  - FLAG (CLAUDE.md UI standard): no approved reference screens exist yet. The screenshot-against-reference gate cannot run for P1-05+ until references are provided. Stakeholder to supply reference designs or approve the first built screens as the references.
 - [ ] P1-05: Single-screen admin (clients + projects + sub_projects + engagement + pricing summary)
 - [ ] P1-06: Client pricing screen (admin-only, priceHistory audit, stale warnings)
 - [ ] P1-07: Tickets, tasks, and bugs lifecycle (including Gate 1 approval queue)
