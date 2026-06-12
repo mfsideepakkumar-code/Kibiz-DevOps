@@ -8,7 +8,10 @@
   - OPEN QUESTION (stakeholder): profit_centers NOT seeded — schema.md list is marked "e.g."; need the confirmed centre list (prd.md §6).
   - OPEN QUESTION (OQ-1): v_executive_kpis ships without Utilisation and Idle Cost — formulas pending the original dashboard PRD. Do not build until OQ-1 resolves.
   - NOTE: KiCare per-ticket exclude toggle has no schema field yet (no column in schema.md); expected with P2-03 KiCare classification.
-- [ ] P1-03: Auth & RBAC (Supabase Auth, role-based routing, RLS policies, server-side role checks)
+- [x] P1-03: Auth & RBAC (Supabase Auth, role-based routing, RLS policies, server-side role checks) (branch: p1-03-auth-rbac · done 2026-06-12 · local merge, no remote configured yet)
+  - OPEN QUESTION (stakeholder): project_lead row-scoping — security.md says "within own projects" but no project-membership model exists in schema.md (no members table; assignment via tasks? project_rates?). project_lead = developer-level access until resolved.
+  - ACTION REQUIRED (dashboard, cannot be done in SQL): disable public email signups in Supabase dashboard (Auth → Providers) before pilot. DB-level defense (signups land inactive) is in place.
+  - NOTE: select * fails for non-admins on users/project_rates/products (column-level grants) — always select explicit columns; see security.md implementation notes.
 - [ ] P1-04: Design system (shadcn/ui tokens, formatters, shared table/form/card components)
 - [ ] P1-05: Single-screen admin (clients + projects + sub_projects + engagement + pricing summary)
 - [ ] P1-06: Client pricing screen (admin-only, priceHistory audit, stale warnings)

@@ -170,3 +170,12 @@ End of Phase 2 (before Cayan goes live):
   \[ \] ACH data path reviewed (Cayan handles; confirm no logging on our side)  
   \[ \] Rate limiting on webhook endpoint active  
   \[ \] Penetration test or security review on payment routes
+\#\# Implementation notes (P1-03, migrations 0011–0012, 2026-06-12)
+
+\- fn\_current\_role() (SECURITY DEFINER) drives all policies; returns NULL for inactive users → a valid JWT with is\_active \= false gets zero rows everywhere.  
+\- Signup trigger (handle\_new\_user) creates users INACTIVE with role developer. GoTrue merges app\_metadata after insert, so metadata is never trusted for role. Roles are assigned explicitly: scripts/create-user.mjs (service role) or User Management screen.  
+\- ACTION REQUIRED before pilot: disable public email signups in the Supabase dashboard (Auth → Providers). Defense-in-depth exists (inactive-until-activated) but signups should be off regardless.  
+\- Field-level protection implemented as column-level GRANTs: users.cost\_rate\_per\_hour, project\_rates.cost\_rate\_per\_hour, products.cost\_price are revoked from `authenticated` entirely. Consequence: select \* on those three tables FAILS for app users — always select explicit columns. Admin reads cost fields server-side via service role after requireRole('admin').  
+\- v\_hosting\_prices \= non-admin access path (price only); v\_hosting\_margins (with cost/margin) is service-role/server-side only because it reads products.cost\_price.  
+\- Client-portal policies are WRITTEN BUT COMMENTED OUT at the end of migration 0011 (C-1 hard block).  
+\- project\_lead is treated as developer in row policies until the project-membership model is defined (open question under P1-03 in TASKS.md).
