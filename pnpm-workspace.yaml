@@ -1,4 +1,5 @@
 allowBuilds:
+  '@sentry-internal/node-cpu-profiler': false
   protobufjs: true
   sharp: true
   supabase: true
