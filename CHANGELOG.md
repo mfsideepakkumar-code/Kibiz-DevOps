@@ -1,5 +1,7 @@
 # Changelog
 
+- 2026-06-14 · P1-07 · Tickets/tasks/bugs lifecycle + Gate 1: migration 0013 (ticket auto-numbering, DB Gate 1 status guard), lifecycle helpers, server actions, /tickets list+detail, task management, and the Operations Queue Pending Approvals tab (approve/reject/return/triage). Gate 1 enforcement verified live.
+
 - 2026-06-14 · P1-06 · Client Pricing screen (/admin/pricing, admin-only): per-field rate editor with per-field last-changed audit, append-only price history, 90-day stale warning + mark-reviewed. Append-only enforcement verified live.
 
 - 2026-06-14 · P1-05 · Single-screen admin (Clients & Projects): left client nav, vertical tabs (Overview/Projects+sub-projects/Contacts/Pricing summary), right info+docs sidebar; slide-over CRUD forms (RHF+Zod) via admin-gated server actions; composite-FK-safe sub-projects. RLS insert policies verified live.
