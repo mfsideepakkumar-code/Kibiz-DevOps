@@ -22,7 +22,12 @@
   - /admin/pricing: per-field editor, per-field last-changed caption, full price history, 90-day stale warning + "Mark reviewed". Reuses approved single-screen admin pattern (.agent/ui-references.md).
   - price_history append handled in the server action (read-diff-append); DB append-only trigger verified live to reject removal/modification of existing entries.
   - N11 (pricing not reviewed >90d) UI surfaced here; the email/nightly side is WF-008 (P1-13+).
-- [ ] P1-07: Tickets, tasks, and bugs lifecycle (including Gate 1 approval queue)
+- [x] P1-07: Tickets, tasks, and bugs lifecycle (including Gate 1 approval queue) (branch: p1-07-tickets-tasks-bugs · done 2026-06-14 · local merge, no remote configured yet)
+  - Migration 0013: ticket_no auto-numbering + DB-level Gate 1 status guard. Verified live: dev cannot self-create/approve approved tickets; dev task auto-approves ONLY under an approved ticket (ADR-014); dev cannot triage bugs.
+  - Screens: /tickets (list+filter+create), /tickets/[id] (detail, tasks, status transitions), /ops-queue Pending Approvals (approve/reject/return/triage). Risk Monitoring + Billing Queue tabs are placeholders (P2 / P1-12).
+  - OPEN QUESTION (CLAUDE.md rule 3 — did NOT guess): "Internal non-billable under threshold (default 2h) = self-approved" not implemented. Tickets have no estimate field and there is no company_config threshold field; the exact predicate (which field, which entity, internal=project.is_internal?) is ambiguous. Needs stakeholder definition before implementing self-approve.
+  - DEFERRED (follow-up, not blocking): bug convert/merge to ticket/task (only approve/reject/triage shipped); dedicated dev screens My Work / Task Detail / Draft Status (folded into shared /tickets surface for now).
+  - REFERENCE-SCREEN GATE: new screen archetypes (list, master-detail, queue) built from spec; pending stakeholder approval as baselines (.agent/ui-references.md). Authenticated screenshots deferred.
 - [ ] P1-08: Activities (time entries) management (duration-first, raw minutes, edit/lock states)
 - [ ] P1-09: Web timers engine (timer_state, server actions, midnight database split, 12h auto-stop)
 - [ ] P1-10: Goal Sheet / My Day (developer view + timer integration + manager team-day grid)

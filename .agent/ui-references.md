@@ -9,6 +9,9 @@ its layout pattern.
 | Screen | Route | Spec | Approved | Approver | Reference |
 | --- | --- | --- | --- | --- | --- |
 | Clients & Projects (single-screen admin) | `/admin/clients` | FR-17.10 · ADR-025 | 2026-06-14 | Stakeholder (Deepak) | Implementation at commit `88622d3` (P1-05) |
+| Client Pricing | `/admin/pricing` | screen inventory · security.md | 2026-06-14 | inherits admin pattern | P1-06 |
+| Tickets list + detail | `/tickets`, `/tickets/[id]` | screen inventory (Tickets, Ticket Detail) | PENDING | — | P1-07, built from spec |
+| Operations Queue | `/ops-queue` | screen inventory (Operations Queue) | PENDING | — | P1-07, built from spec |
 
 ## Notes
 
