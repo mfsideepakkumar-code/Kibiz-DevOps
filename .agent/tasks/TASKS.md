@@ -14,7 +14,10 @@
   - NOTE: select * fails for non-admins on users/project_rates/products (column-level grants) — always select explicit columns; see security.md implementation notes.
 - [x] P1-04: Design system (shadcn/ui tokens, formatters, shared table/form/card components) (branch: p1-04-design-system · done 2026-06-13 · local merge, no remote configured yet)
   - FLAG (CLAUDE.md UI standard): no approved reference screens exist yet. The screenshot-against-reference gate cannot run for P1-05+ until references are provided. Stakeholder to supply reference designs or approve the first built screens as the references.
-- [ ] P1-05: Single-screen admin (clients + projects + sub_projects + engagement + pricing summary)
+- [x] P1-05: Single-screen admin (clients + projects + sub_projects + engagement + pricing summary) (branch: p1-05-admin-screen · done 2026-06-14 · local merge, no remote configured yet)
+  - REFERENCE-SCREEN GATE (CLAUDE.md UI standard): no approved reference design existed. Built from PRD/spec (FR-17.10 / ADR-025) per explicit user instruction "build from spec"; pending stakeholder approval of this screen as the reference baseline. No screenshot diff performed.
+  - ACTION REQUIRED (dashboard): Email logins are currently DISABLED in Supabase (Auth → Providers → Email). Re-enable the Email provider but keep "Allow new users to sign up" OFF. Right now nobody (incl. admin) can log in. Verified separately that admin RLS insert policies pass via JWT impersonation.
+  - NOTE: pricing tab is read-only summary; full pricing edit + price-history + 90-day stale warning is P1-06. Document storage panel is a placeholder (storage buckets not yet provisioned).
 - [ ] P1-06: Client pricing screen (admin-only, priceHistory audit, stale warnings)
 - [ ] P1-07: Tickets, tasks, and bugs lifecycle (including Gate 1 approval queue)
 - [ ] P1-08: Activities (time entries) management (duration-first, raw minutes, edit/lock states)
