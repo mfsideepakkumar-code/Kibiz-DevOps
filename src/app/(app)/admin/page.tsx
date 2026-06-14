@@ -31,6 +31,20 @@ export default async function AdminHomePage() {
             </Button>
           </CardContent>
         </Card>
+        <Card>
+          <CardHeader>
+            <CardTitle>Client Pricing</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            <p className="text-sm text-muted-foreground">
+              Set per-client rates with change history and 90-day review
+              reminders.
+            </p>
+            <Button asChild size="sm">
+              <Link href="/admin/pricing">Open</Link>
+            </Button>
+          </CardContent>
+        </Card>
       </div>
     </div>
   );
