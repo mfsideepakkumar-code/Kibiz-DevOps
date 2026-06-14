@@ -13,3 +13,4 @@
 20260612162852_0011_auth_rbac | all tables (policies), users (grants), v_hosting_prices, fns fn_current_role/fn_is_staff/fn_is_manager_up/handle_new_user | RBAC: RLS policies per security.md, column-level cost-field revokes, signup trigger, disabled client-portal policies (C-1) | 2026-06-12
 20260612163544_0012_auth_hardening | users (trigger), fn_current_role | new signups inactive by default; inactive users denied by all policies; roles assigned explicitly server-side | 2026-06-12
 20260614100232_0013_gate1_lifecycle | tickets, tasks, bugs (triggers) + ticket_no_seq | auto ticket numbering (TKT-NNNN) + DB-level Gate 1 status guard (devs cannot self-approve; ADR-014 task carve-out) | 2026-06-14
+20260614153108_0014_activity_guards | time_entries (trigger + delete policy) | period-lock guard (locked entries reject edits/deletes for authenticated users; service-role/admin-override exempt) + own-draft delete policy | 2026-06-14

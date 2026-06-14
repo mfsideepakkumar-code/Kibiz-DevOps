@@ -28,7 +28,12 @@
   - OPEN QUESTION (CLAUDE.md rule 3 — did NOT guess): "Internal non-billable under threshold (default 2h) = self-approved" not implemented. Tickets have no estimate field and there is no company_config threshold field; the exact predicate (which field, which entity, internal=project.is_internal?) is ambiguous. Needs stakeholder definition before implementing self-approve.
   - DEFERRED (follow-up, not blocking): bug convert/merge to ticket/task (only approve/reject/triage shipped); dedicated dev screens My Work / Task Detail / Draft Status (folded into shared /tickets surface for now).
   - REFERENCE-SCREEN GATE: new screen archetypes (list, master-detail, queue) built from spec; pending stakeholder approval as baselines (.agent/ui-references.md). Authenticated screenshots deferred.
-- [ ] P1-08: Activities (time entries) management (duration-first, raw minutes, edit/lock states)
+- [x] P1-08: Activities (time entries) management (duration-first, raw minutes, edit/lock states) (branch: p1-08-activities · done 2026-06-14 · local merge)
+  - /activities screen (RLS-scoped: devs own, managers all): duration-first Log time (task or project-level), edit (draft/rejected only), delete own draft, filters (state/billable/date), totals; 3 mandatory states via DataTable.
+  - Rules verified live: min 1 min (CHECK), billable & project-level require description (CHECKs), billable_label generated, edit_history append on edit, period-lock trigger blocks authenticated edits/deletes (manager included) with service-role override exempt.
+  - NOTE: billable prefill keyed off ticket.billing_type (categories.default_billable still NULL — finance); column wired for when it lands.
+  - DEFERRED (later task): admin period-lock management UI + override flow (void_reason + audit row) — the DB exemption path exists; no UI yet. Also: AI description refinement (P2-04), splits (P2), timer-driven start/end (P1-09).
+  - OPEN QUESTION (carried, for P1-10): daily capacity "Goal: 8h" has no source field in users; needs stakeholder definition.
 - [ ] P1-09: Web timers engine (timer_state, server actions, midnight database split, 12h auto-stop)
 - [ ] P1-10: Goal Sheet / My Day (developer view + timer integration + manager team-day grid)
 - [ ] P1-11: Timesheets management (Gate 2 weekly submit/review cycle)

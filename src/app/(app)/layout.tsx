@@ -7,6 +7,7 @@ import type { Role } from "@/lib/roles";
 const NAV: { href: string; label: string; roles: Role[] }[] = [
   { href: "/my-day", label: "My Day", roles: ["developer", "project_lead", "manager", "admin"] },
   { href: "/tickets", label: "Tickets", roles: ["developer", "project_lead", "manager", "admin"] },
+  { href: "/activities", label: "Activities", roles: ["developer", "project_lead", "manager", "admin"] },
   { href: "/ops-queue", label: "Ops Queue", roles: ["manager", "admin"] },
   { href: "/dashboard", label: "Dashboard", roles: ["executive", "admin"] },
   { href: "/admin", label: "Admin", roles: ["admin"] },
