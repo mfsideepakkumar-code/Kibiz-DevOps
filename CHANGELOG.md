@@ -1,5 +1,7 @@
 # Changelog
 
+- 2026-06-14 · P1-08 · Activities (time entries): /activities screen with duration-first logging (task or project-level), draft/rejected editing, own-draft delete, filters + totals; migration 0014 (period-lock guard with service-role override + own-draft delete policy); activity validation rules + 8 tests. Rules and lock guard verified live.
+
 - 2026-06-14 · P1-07 · Tickets/tasks/bugs lifecycle + Gate 1: migration 0013 (ticket auto-numbering, DB Gate 1 status guard), lifecycle helpers, server actions, /tickets list+detail, task management, and the Operations Queue Pending Approvals tab (approve/reject/return/triage). Gate 1 enforcement verified live.
 
 - 2026-06-14 · P1-06 · Client Pricing screen (/admin/pricing, admin-only): per-field rate editor with per-field last-changed audit, append-only price history, 90-day stale warning + mark-reviewed. Append-only enforcement verified live.
