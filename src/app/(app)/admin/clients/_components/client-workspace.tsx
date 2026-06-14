@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
@@ -30,8 +32,8 @@ import type { ClientDetail } from "../types";
 function Field({ label, value }: { label: string; value: React.ReactNode }) {
   return (
     <div className="space-y-0.5">
-      <dt className="text-xs text-muted-foreground">{label}</dt>
-      <dd className="text-sm">{value ?? EMPTY_VALUE}</dd>
+      <p className="text-xs text-muted-foreground">{label}</p>
+      <div className="text-sm">{value ?? EMPTY_VALUE}</div>
     </div>
   );
 }
@@ -80,7 +82,7 @@ export function ClientWorkspace({ detail }: { detail: ClientDetail }) {
                 <CardTitle>Engagement &amp; details</CardTitle>
               </CardHeader>
               <CardContent>
-                <dl className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-2 gap-4">
                   <Field
                     label="Engagement model"
                     value={engagementLabel(client.engagement_model)}
@@ -99,7 +101,7 @@ export function ClientWorkspace({ detail }: { detail: ClientDetail }) {
                     label="FileMaker client ID"
                     value={client.fm_client_id}
                   />
-                </dl>
+                </div>
               </CardContent>
             </Card>
           </TabsContent>
@@ -265,13 +267,18 @@ export function ClientWorkspace({ detail }: { detail: ClientDetail }) {
           {/* Pricing summary (read-only — full edit is the Client Pricing screen, P1-06) */}
           <TabsContent value="pricing" className="mt-0">
             <Card>
-              <CardHeader>
+              <CardHeader className="flex flex-row items-center justify-between gap-2">
                 <CardTitle>Pricing summary</CardTitle>
+                <Button asChild variant="outline" size="sm">
+                  <Link href={`/admin/pricing?client=${client.id}`}>
+                    Edit pricing
+                  </Link>
+                </Button>
               </CardHeader>
               <CardContent className="space-y-4">
                 {pricing ? (
                   <>
-                    <dl className="grid grid-cols-2 gap-4">
+                    <div className="grid grid-cols-2 gap-4">
                       <Field
                         label="Hourly rate"
                         value={formatCurrency(pricing.hourly_rate)}
@@ -301,7 +308,7 @@ export function ClientWorkspace({ detail }: { detail: ClientDetail }) {
                             : ""
                         }`}
                       />
-                    </dl>
+                    </div>
                     <Separator />
                     <p className="text-xs text-muted-foreground">
                       Last updated {formatDateTime(pricing.updated_at)}. Editing

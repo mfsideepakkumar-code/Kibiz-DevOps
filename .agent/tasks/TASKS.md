@@ -18,7 +18,10 @@
   - REFERENCE-SCREEN GATE (CLAUDE.md UI standard): built from PRD/spec (FR-17.10 / ADR-025) per instruction "build from spec". APPROVED as the reference baseline by stakeholder 2026-06-14 — recorded in .agent/ui-references.md. This screen is now the canonical single-screen admin pattern for later admin screens. (Authenticated screenshot deferred until email login is re-enabled.)
   - ACTION REQUIRED (dashboard): Email logins are currently DISABLED in Supabase (Auth → Providers → Email). Re-enable the Email provider but keep "Allow new users to sign up" OFF. Right now nobody (incl. admin) can log in. Verified separately that admin RLS insert policies pass via JWT impersonation.
   - NOTE: pricing tab is read-only summary; full pricing edit + price-history + 90-day stale warning is P1-06. Document storage panel is a placeholder (storage buckets not yet provisioned).
-- [ ] P1-06: Client pricing screen (admin-only, priceHistory audit, stale warnings)
+- [x] P1-06: Client pricing screen (admin-only, priceHistory audit, stale warnings) (branch: p1-06-client-pricing · done 2026-06-14 · local merge, no remote configured yet)
+  - /admin/pricing: per-field editor, per-field last-changed caption, full price history, 90-day stale warning + "Mark reviewed". Reuses approved single-screen admin pattern (.agent/ui-references.md).
+  - price_history append handled in the server action (read-diff-append); DB append-only trigger verified live to reject removal/modification of existing entries.
+  - N11 (pricing not reviewed >90d) UI surfaced here; the email/nightly side is WF-008 (P1-13+).
 - [ ] P1-07: Tickets, tasks, and bugs lifecycle (including Gate 1 approval queue)
 - [ ] P1-08: Activities (time entries) management (duration-first, raw minutes, edit/lock states)
 - [ ] P1-09: Web timers engine (timer_state, server actions, midnight database split, 12h auto-stop)
