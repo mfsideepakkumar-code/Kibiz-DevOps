@@ -3,6 +3,8 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { getCurrentUser } from "@/lib/auth";
 import type { Role } from "@/lib/roles";
+import { getActiveTimer } from "@/lib/timer-queries";
+import { TimerWidget } from "./_timer/timer-widget";
 
 const NAV: { href: string; label: string; roles: Role[] }[] = [
   { href: "/my-day", label: "My Day", roles: ["developer", "project_lead", "manager", "admin"] },
@@ -20,6 +22,7 @@ export default async function AppLayout({
 }) {
   const user = await getCurrentUser();
   const items = user ? NAV.filter((n) => n.roles.includes(user.role)) : [];
+  const activeTimer = user ? await getActiveTimer() : null;
 
   return (
     <div className="min-h-svh">
@@ -33,6 +36,7 @@ export default async function AppLayout({
           ))}
         </nav>
         <div className="flex items-center gap-4">
+          <TimerWidget timer={activeTimer} />
           <span className="text-sm text-muted-foreground">
             {user?.name} · {user?.role}
           </span>

@@ -1,5 +1,7 @@
 # Changelog
 
+- 2026-06-15 · P1-09 · Web timers: start/stop server actions (one-per-user), stop finalizes into time_entries with start/end times, midnight split, 12h cap + manager notification, under-1-min discard, billable-requires-description; global header TimerWidget (live tick) + StartTimerButton on ticket tasks; computeTimerSegments/formatElapsed helpers + 7 tests.
+
 - 2026-06-14 · P1-08 · Activities (time entries): /activities screen with duration-first logging (task or project-level), draft/rejected editing, own-draft delete, filters + totals; migration 0014 (period-lock guard with service-role override + own-draft delete policy); activity validation rules + 8 tests. Rules and lock guard verified live.
 
 - 2026-06-14 · P1-07 · Tickets/tasks/bugs lifecycle + Gate 1: migration 0013 (ticket auto-numbering, DB Gate 1 status guard), lifecycle helpers, server actions, /tickets list+detail, task management, and the Operations Queue Pending Approvals tab (approve/reject/return/triage). Gate 1 enforcement verified live.

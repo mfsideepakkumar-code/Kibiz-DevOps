@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 
 import { getCurrentUser, requireRole } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
+import { getActiveTimer } from "@/lib/timer-queries";
 
 import {
   TicketDetail,
@@ -31,13 +32,14 @@ export default async function TicketDetailPage({
     .maybeSingle();
   if (!ticket) notFound();
 
-  const [{ data: tasks }, { data: users }] = await Promise.all([
+  const [{ data: tasks }, { data: users }, activeTimer] = await Promise.all([
     supabase
       .from("tasks")
       .select("id, title, description, status, assignee_id")
       .eq("ticket_id", id)
       .order("created_at"),
     supabase.from("users").select("id, name").eq("is_active", true).order("name"),
+    getActiveTimer(),
   ]);
 
   const userName = (uid: string | null) =>
@@ -77,6 +79,7 @@ export default async function TicketDetailPage({
       tasks={detailTasks}
       users={users ?? []}
       isManager={isManager}
+      timerRunning={activeTimer !== null}
     />
   );
 }
