@@ -17,3 +17,4 @@
 20260615050017_0015_user_daily_capacity | users | add daily_capacity_hours (default 8) for Goal Sheet capacity + column grant to authenticated | 2026-06-15
 20260615051042_0016_goal_items_own_check | goal_items (policy) | tighten own-write WITH CHECK to user_id=self (closes cross-user planning via added_by); manager push uses its own policy | 2026-06-15
 20260615052309_0017_gate2_timesheets | time_entries (policy), timesheets (trigger) | Gate 2: dev can move own draft/rejected→submitted (explicit WITH CHECK); timesheet status guard (non-managers limited to draft/submitted) | 2026-06-15
+20260615114839_0018_ai_usage_log | ai_usage_log (new table) | P1-12 Gate 3: token-usage log for every Claude API call (AI matrix requirement); admin SELECT only, inserts server-side via service role | 2026-06-15

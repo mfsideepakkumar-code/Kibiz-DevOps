@@ -17,6 +17,7 @@ import {
   returnTask,
   triageBug,
 } from "../../tickets/actions";
+import { BillingQueue, type BillingItem } from "./billing-queue";
 import { RejectDialog } from "./reject-dialog";
 
 export type PendingTicket = {
@@ -48,10 +49,14 @@ export function ApprovalsQueue({
   tickets,
   tasks,
   bugs,
+  billing,
+  aiConfigured,
 }: {
   tickets: PendingTicket[];
   tasks: PendingTask[];
   bugs: PendingBug[];
+  billing: BillingItem[];
+  aiConfigured: boolean;
 }) {
   const router = useRouter();
   const [pending, start] = useTransition();
@@ -76,7 +81,9 @@ export function ApprovalsQueue({
           Pending Approvals{total ? ` (${total})` : ""}
         </TabsTrigger>
         <TabsTrigger value="risk">Risk Monitoring</TabsTrigger>
-        <TabsTrigger value="billing">Billing Queue</TabsTrigger>
+        <TabsTrigger value="billing">
+          Billing Queue{billing.length ? ` (${billing.length})` : ""}
+        </TabsTrigger>
       </TabsList>
 
       <TabsContent value="approvals" className="space-y-4 pt-4">
@@ -239,10 +246,7 @@ export function ApprovalsQueue({
         />
       </TabsContent>
       <TabsContent value="billing" className="pt-4">
-        <EmptyState
-          title="Billing Queue"
-          description="Gate 3 AI billing summaries land here (P1-12)."
-        />
+        <BillingQueue items={billing} aiConfigured={aiConfigured} />
       </TabsContent>
     </Tabs>
   );

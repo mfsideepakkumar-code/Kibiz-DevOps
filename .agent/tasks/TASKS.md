@@ -50,7 +50,11 @@
   - State flow verified live (10-check smoke): draft→submitted (dev), submitted→rejected (manager flag, with approvals audit + timesheet.review_note), rejected→submitted (resubmit), submitted→approved (manager). Approved = billing-eligible.
   - Migration 0017: time_entries dev WITH CHECK allows draft/rejected→submitted; Gate 2 trigger blocks non-managers from approve/flag/bill on timesheets. Verified: dev cannot self-approve, cannot edit approved entries.
   - NOTE: timesheets are created lazily on submit (not auto-created on first activity of the week — schema comment says auto-create; deferred, no functional gap). project_lead approves only as manager-equivalent (membership model still open). billed status is P2 (invoicing).
-- [ ] P1-12: AI billing summaries (Gate 3 queue UI)
+- [x] P1-12: AI billing summaries (Gate 3 queue UI) (branch: p1-12-ai-billing) — done 2026-06-15, PR #p1-12
+  - Ops Queue → Billing Queue: tickets in {approved,in_progress,blocked,done} surface when all tasks done OR a draft/returned summary exists; approved summaries drop off. Shows total/billable hours.
+  - Claude API (claude-opus-4-8, JSON-schema output) in src/lib/ai/anthropic.ts (server-only); /prompts/billing-summary.ts (two outputs: client-facing summary_text — never rates/costs/staff names; internal_detail accounting-only). Gate 3 server actions: generate / save (manual) / approve (→ ticket ready_to_bill + approvals audit) / return.
+  - Migration 0018 ai_usage_log: token usage logged every call (admin read-only, inserts service-role). Graceful degrade when ANTHROPIC_API_KEY absent (manual write+approve path verified).
+  - OPEN: prompt has no eval baseline yet (P1-14 builds the harness); company spend circuit-breaker (company_config threshold) not wired — applies to inline classification only, deferred to those features.
 - [ ] P1-13: Materialized dashboards & operational views (v_billable_by_developer, v_executive_kpis)
 - [ ] P1-14: AI Evaluation harness (/evals/datasets/, /evals/run.ts, regression blocking)
 - [ ] P1-15: FM sync (WF-009) n8n integration webhooks and backoff handler
