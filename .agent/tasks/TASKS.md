@@ -34,7 +34,12 @@
   - NOTE: billable prefill keyed off ticket.billing_type (categories.default_billable still NULL — finance); column wired for when it lands.
   - DEFERRED (later task): admin period-lock management UI + override flow (void_reason + audit row) — the DB exemption path exists; no UI yet. Also: AI description refinement (P2-04), splits (P2), timer-driven start/end (P1-09).
   - OPEN QUESTION (carried, for P1-10): daily capacity "Goal: 8h" has no source field in users; needs stakeholder definition.
-- [ ] P1-09: Web timers engine (timer_state, server actions, midnight database split, 12h auto-stop)
+- [x] P1-09: Web timers engine (timer_state, server actions, midnight database split, 12h auto-stop) (branch: p1-09-web-timers · done 2026-06-15 · local merge)
+  - Engine: startTimer (one-per-user, blocks if running), stopTimer (finalizes via computeTimerSegments → time_entries with start/end; midnight split; 12h cap + manager notify; under-1-min discarded; billable requires description before stop). No migration needed (timer_state + RLS already existed).
+  - UI: global header TimerWidget (live tick, stop dialog with description), StartTimerButton on ticket-detail task rows (disabled while a timer runs). Canonical My Day placement comes in P1-10 (rule 10) — engine + components are reusable.
+  - computeTimerSegments + formatElapsed pure helpers with 7 tests; timer DB RLS verified live.
+  - OPEN QUESTION (flagged in src/lib/timer.ts): midnight split uses UTC day boundaries — correct local-day splitting needs a company timezone field (company_config has none). Revisit with tz config.
+  - DEFERRED (needs a WF-spec, CLAUDE.md rule 7): proactive unattended 12h auto-stop cron. Currently the 12h cap applies at stop time; an Inngest cron to stop idle-running timers needs a WF-spec before it can be built.
 - [ ] P1-10: Goal Sheet / My Day (developer view + timer integration + manager team-day grid)
 - [ ] P1-11: Timesheets management (Gate 2 weekly submit/review cycle)
 - [ ] P1-12: AI billing summaries (Gate 3 queue UI)

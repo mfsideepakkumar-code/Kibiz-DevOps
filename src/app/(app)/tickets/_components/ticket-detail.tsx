@@ -12,10 +12,13 @@ import {
   type TicketStatus,
 } from "@/lib/work-lifecycle";
 
+import { StartTimerButton } from "../../_timer/start-timer-button";
 import { setTaskStatus, setTicketStatus } from "../actions";
 import { TaskForm } from "./task-form";
 import { WorkStatusControl } from "./work-status-control";
 import type { Option } from "./ticket-form";
+
+const TIMEABLE_TASK_STATES = ["approved", "in_progress", "blocked", "done"];
 
 export type DetailTicket = {
   id: string;
@@ -50,11 +53,13 @@ export function TicketDetail({
   tasks,
   users,
   isManager,
+  timerRunning,
 }: {
   ticket: DetailTicket;
   tasks: DetailTask[];
   users: Option[];
   isManager: boolean;
+  timerRunning: boolean;
 }) {
   const autoApproved = isManager || APPROVED_TICKET.includes(ticket.status);
 
@@ -138,14 +143,19 @@ export function TicketDetail({
                     {t.assignee_name ?? "Unassigned"}
                   </p>
                 </div>
-                <WorkStatusControl
-                  current={t.status}
-                  transitions={taskTransitions(
-                    t.status as TaskStatus,
-                    isManager,
-                  )}
-                  action={(to) => setTaskStatus(t.id, to as TaskStatus)}
-                />
+                <div className="flex shrink-0 items-center gap-1">
+                  {TIMEABLE_TASK_STATES.includes(t.status) ? (
+                    <StartTimerButton taskId={t.id} disabled={timerRunning} />
+                  ) : null}
+                  <WorkStatusControl
+                    current={t.status}
+                    transitions={taskTransitions(
+                      t.status as TaskStatus,
+                      isManager,
+                    )}
+                    action={(to) => setTaskStatus(t.id, to as TaskStatus)}
+                  />
+                </div>
               </div>
             ))
           )}
