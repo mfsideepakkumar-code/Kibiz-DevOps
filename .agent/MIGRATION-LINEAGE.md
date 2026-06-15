@@ -14,3 +14,5 @@
 20260612163544_0012_auth_hardening | users (trigger), fn_current_role | new signups inactive by default; inactive users denied by all policies; roles assigned explicitly server-side | 2026-06-12
 20260614100232_0013_gate1_lifecycle | tickets, tasks, bugs (triggers) + ticket_no_seq | auto ticket numbering (TKT-NNNN) + DB-level Gate 1 status guard (devs cannot self-approve; ADR-014 task carve-out) | 2026-06-14
 20260614153108_0014_activity_guards | time_entries (trigger + delete policy) | period-lock guard (locked entries reject edits/deletes for authenticated users; service-role/admin-override exempt) + own-draft delete policy | 2026-06-14
+20260615050017_0015_user_daily_capacity | users | add daily_capacity_hours (default 8) for Goal Sheet capacity + column grant to authenticated | 2026-06-15
+20260615051042_0016_goal_items_own_check | goal_items (policy) | tighten own-write WITH CHECK to user_id=self (closes cross-user planning via added_by); manager push uses its own policy | 2026-06-15
