@@ -566,6 +566,6 @@ DB-level enforcement shipped in 0008:
 Other notes:  
   \- invoice\_no\_seq sequence created in 0006 (numbering: company\_config.invoice\_prefix \+ counter)  
   \- RLS ENABLED on all 41 tables in 0009 with zero policies \= default deny; role policies ship with P1-03  
-  \- All plain views use security\_invoker \= true; v\_executive\_kpis is MATERIALIZED with anon/authenticated access revoked (served server-side); refresh via fn\_refresh\_executive\_kpis() (service role only)  
+  \- All plain views use security\_invoker \= true; v\_executive\_kpis is MATERIALIZED with anon/authenticated access revoked (served server-side); refresh via fn\_refresh\_executive\_kpis() (service role only). NOTE (0019, P1-13): the function now does a plain (non-CONCURRENT) refresh — the singleton unique index is on an expression ((true)), which CONCURRENTLY rejects. Single-row snapshot, brief exclusive lock is fine.  
   \- v\_true\_margin NOT created (blocked on C-10 finance sign-off)  
   \- fn\_resolve\_rate(project, user, work\_date) implements the rate-resolution cascade

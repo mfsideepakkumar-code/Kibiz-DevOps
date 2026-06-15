@@ -5,6 +5,13 @@
 export type StatusVariant = "success" | "warning" | "danger" | "info" | "neutral";
 
 const STATUS_VARIANTS: Record<string, StatusVariant> = {
+  // semantic levels (callers may pass a variant directly, e.g. risk severity)
+  success: "success",
+  warning: "warning",
+  danger: "danger",
+  info: "info",
+  neutral: "neutral",
+
   // shared lifecycle
   draft: "neutral",
   submitted: "warning",
