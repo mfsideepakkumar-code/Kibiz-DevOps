@@ -45,7 +45,11 @@
   - /team-day (manager): per-developer planned-vs-actual-vs-capacity bars, Overbooked/No-plan exception flags, push-planning (add approved task to a dev's day).
   - Migration 0015 (users.daily_capacity_hours default 8 + grant) and 0016 (security: goal_items own-write tightened to user_id=self — closed a cross-user planning gap). Both verified live (7-check smoke).
   - DEFERRED: recurring goal items (WF-006 — needs Inngest infra, has a WF-spec); AI day-planning ("Smart Day Planning" in prototype) and AI description refine (P2-04); week drag-drop reschedule; carry uses next-day (not next-working-day) — note tz/working-day refinement with the company-tz item.
-- [ ] P1-11: Timesheets management (Gate 2 weekly submit/review cycle)
+- [x] P1-11: Timesheets management (Gate 2 weekly submit/review cycle) (branch: p1-11-timesheets · done 2026-06-15 · local merge)
+  - /timesheets (dev): recent-weeks list, selected-week summary + entries, Submit/Resubmit, flagged banner with review note. /timesheet-review (manager): queue of submitted/flagged + detail with per-entry select to flag (reason) or one-click Approve.
+  - State flow verified live (10-check smoke): draft→submitted (dev), submitted→rejected (manager flag, with approvals audit + timesheet.review_note), rejected→submitted (resubmit), submitted→approved (manager). Approved = billing-eligible.
+  - Migration 0017: time_entries dev WITH CHECK allows draft/rejected→submitted; Gate 2 trigger blocks non-managers from approve/flag/bill on timesheets. Verified: dev cannot self-approve, cannot edit approved entries.
+  - NOTE: timesheets are created lazily on submit (not auto-created on first activity of the week — schema comment says auto-create; deferred, no functional gap). project_lead approves only as manager-equivalent (membership model still open). billed status is P2 (invoicing).
 - [ ] P1-12: AI billing summaries (Gate 3 queue UI)
 - [ ] P1-13: Materialized dashboards & operational views (v_billable_by_developer, v_executive_kpis)
 - [ ] P1-14: AI Evaluation harness (/evals/datasets/, /evals/run.ts, regression blocking)

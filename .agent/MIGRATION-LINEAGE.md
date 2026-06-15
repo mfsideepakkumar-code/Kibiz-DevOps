@@ -16,3 +16,4 @@
 20260614153108_0014_activity_guards | time_entries (trigger + delete policy) | period-lock guard (locked entries reject edits/deletes for authenticated users; service-role/admin-override exempt) + own-draft delete policy | 2026-06-14
 20260615050017_0015_user_daily_capacity | users | add daily_capacity_hours (default 8) for Goal Sheet capacity + column grant to authenticated | 2026-06-15
 20260615051042_0016_goal_items_own_check | goal_items (policy) | tighten own-write WITH CHECK to user_id=self (closes cross-user planning via added_by); manager push uses its own policy | 2026-06-15
+20260615052309_0017_gate2_timesheets | time_entries (policy), timesheets (trigger) | Gate 2: dev can move own draft/rejected→submitted (explicit WITH CHECK); timesheet status guard (non-managers limited to draft/submitted) | 2026-06-15
