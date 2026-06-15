@@ -56,4 +56,9 @@
 - [ ] P1-15: FM sync (WF-009) n8n integration webhooks and backoff handler
 
 ---
+
+## Cross-cutting
+- [x] UI app shell + theme (match prototype) — left sidebar nav (lucide icons), indigo accent, white-card/light-gray surfaces, soft shadows, top-bar timer; tokens-only (branch: ui-app-shell · 2026-06-15). Approved baseline recorded in .agent/ui-references.md.
+
+---
 *Reference CLAUDE.md for rules on task lifecycle: pick top unblocked task, mark [~] with branch name, run tests, update task to [x] on PR submit.*
