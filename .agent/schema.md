@@ -343,6 +343,19 @@ billing\_summaries
   approved\_at timestamptz  
   status text CHECK IN (draft, approved, returned) DEFAULT 'draft'
 
+ai\_usage\_log  (added migration 0018, P1-12)  
+  id uuid PK  
+  user\_id uuid FK users  
+  feature text NOT NULL              \-- e.g. 'billing\_summary'  
+  model text NOT NULL  
+  input\_tokens int DEFAULT 0  
+  output\_tokens int DEFAULT 0  
+  cache\_read\_input\_tokens int DEFAULT 0  
+  cache\_creation\_input\_tokens int DEFAULT 0  
+  status text CHECK IN (success, refusal, error) DEFAULT 'success'  
+  created\_at timestamptz DEFAULT now()  
+  \-- RLS: admin SELECT only; INSERT server-side via service role (every Claude call)
+
 invoices  
   id uuid PK  
   invoice\_no text UNIQUE NOT NULL    \-- prefix \+ counter, IMMUTABLE, never reused  

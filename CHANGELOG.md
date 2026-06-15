@@ -1,5 +1,7 @@
 # Changelog
 
+- 2026-06-15 · P1-12 · AI billing summaries (Gate 3): Ops Queue Billing Queue tab lists wrapping-up tickets (all tasks done, or an in-progress summary), with hours total/billable. Manager can Generate with AI (Claude API, claude-opus-4-8, JSON-schema output), edit the two outputs (client-facing summary_text never leaks rates/costs/staff names; internal_detail is accounting-only), then Approve → ticket goes Ready to bill, or Return with a reason. Degrades cleanly with no ANTHROPIC_API_KEY (manual write/approve still works). Migration 0018 (ai_usage_log: token usage logged on every call, admin read-only). All AI calls server-side; key never in client bundle.
+
 - 2026-06-15 · UI · App shell + indigo theme to match the approved prototype: left sidebar (grouped nav + lucide icons, active state), white cards on light-gray surfaces, soft shadows, top-bar timer; all via design tokens. Applied globally to every authenticated screen.
 
 - 2026-06-15 · P1-11 · Timesheets (Gate 2): dev My Timesheets (weekly submit/resubmit) + manager Timesheet Review (approve / flag entries with reason). Migration 0017 (dev draft/rejected→submitted policy + Gate 2 timesheet status guard); week.ts helpers + tests. Full submit/flag/resubmit/approve cycle verified live.
