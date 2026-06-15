@@ -2069,6 +2069,7 @@ export type Database = {
         Row: {
           billing_rate_per_hour: number | null
           cost_rate_per_hour: number | null
+          daily_capacity_hours: number
           email: string
           fm_email: string | null
           id: string
@@ -2080,6 +2081,7 @@ export type Database = {
         Insert: {
           billing_rate_per_hour?: number | null
           cost_rate_per_hour?: number | null
+          daily_capacity_hours?: number
           email: string
           fm_email?: string | null
           id?: string
@@ -2091,6 +2093,7 @@ export type Database = {
         Update: {
           billing_rate_per_hour?: number | null
           cost_rate_per_hour?: number | null
+          daily_capacity_hours?: number
           email?: string
           fm_email?: string | null
           id?: string

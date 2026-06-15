@@ -40,7 +40,11 @@
   - computeTimerSegments + formatElapsed pure helpers with 7 tests; timer DB RLS verified live.
   - OPEN QUESTION (flagged in src/lib/timer.ts): midnight split uses UTC day boundaries — correct local-day splitting needs a company timezone field (company_config has none). Revisit with tz config.
   - DEFERRED (needs a WF-spec, CLAUDE.md rule 7): proactive unattended 12h auto-stop cron. Currently the 12h cap applies at stop time; an Inngest cron to stop idle-running timers needs a WF-spec before it can be built.
-- [ ] P1-10: Goal Sheet / My Day (developer view + timer integration + manager team-day grid)
+- [x] P1-10: Goal Sheet / My Day (developer view + timer integration + manager team-day grid) (branch: p1-10-my-day · done 2026-06-15 · local merge)
+  - /my-day: date nav + week strip, capacity/progress vs daily_capacity_hours (default 8, ADR by stakeholder 2026-06-15), three buckets (In Progress/Planned/Done), add approved task to plan, inline planned-minutes, planned-vs-actual (logged), start-timer integration, carry-to-next-day, drop (reason required for manager-pushed).
+  - /team-day (manager): per-developer planned-vs-actual-vs-capacity bars, Overbooked/No-plan exception flags, push-planning (add approved task to a dev's day).
+  - Migration 0015 (users.daily_capacity_hours default 8 + grant) and 0016 (security: goal_items own-write tightened to user_id=self — closed a cross-user planning gap). Both verified live (7-check smoke).
+  - DEFERRED: recurring goal items (WF-006 — needs Inngest infra, has a WF-spec); AI day-planning ("Smart Day Planning" in prototype) and AI description refine (P2-04); week drag-drop reschedule; carry uses next-day (not next-working-day) — note tz/working-day refinement with the company-tz item.
 - [ ] P1-11: Timesheets management (Gate 2 weekly submit/review cycle)
 - [ ] P1-12: AI billing summaries (Gate 3 queue UI)
 - [ ] P1-13: Materialized dashboards & operational views (v_billable_by_developer, v_executive_kpis)
