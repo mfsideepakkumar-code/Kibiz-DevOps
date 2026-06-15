@@ -55,7 +55,12 @@
   - Claude API (claude-opus-4-8, JSON-schema output) in src/lib/ai/anthropic.ts (server-only); /prompts/billing-summary.ts (two outputs: client-facing summary_text — never rates/costs/staff names; internal_detail accounting-only). Gate 3 server actions: generate / save (manual) / approve (→ ticket ready_to_bill + approvals audit) / return.
   - Migration 0018 ai_usage_log: token usage logged every call (admin read-only, inserts service-role). Graceful degrade when ANTHROPIC_API_KEY absent (manual write+approve path verified).
   - OPEN: prompt has no eval baseline yet (P1-14 builds the harness); company spend circuit-breaker (company_config threshold) not wired — applies to inline classification only, deferred to those features.
-- [ ] P1-13: Materialized dashboards & operational views (v_billable_by_developer, v_executive_kpis)
+- [x] P1-13: Materialized dashboards & operational views (v_billable_by_developer, v_executive_kpis) (branch: p1-13-dashboards) — done 2026-06-15, PR #p1-13
+  - Executive Dashboard (/dashboard, exec/admin): six headline KPI cards + confirmed-formula operational row, Risk panel, two Recharts (billable mix by dev 30d, 12-week billable trend), manual Refresh.
+  - KPIs from v_executive_kpis (materialized; access revoked from API roles) read via service role after the server-side role gate. Risk/dev views (v_unbilled_exposure, v_block_burn, v_kicare_profitability, v_billable_by_developer) read under caller RLS.
+  - SCOPED OUT (shown as pending "—", not guessed): Cost & Margin % (C-10 true-margin sign-off); Utilisation & Idle Cost (OQ-1 formulas). No cost/margin/burnout fields surfaced; KiCare risk shows status only (no surplus $).
+  - Migration 0019: fn_refresh_executive_kpis was always failing — the singleton unique index is an expression index ((true)) which REFRESH CONCURRENTLY rejects; switched to plain refresh (single-row nightly snapshot). Verified refresh + read live via service role. Same RPC backs WF-008 (P1-15).
+  - status-variant.ts: added self-mapping semantic keys (success/warning/danger/info/neutral) so components can pass a severity level directly.
 - [ ] P1-14: AI Evaluation harness (/evals/datasets/, /evals/run.ts, regression blocking)
 - [ ] P1-15: FM sync (WF-009) n8n integration webhooks and backoff handler
 
