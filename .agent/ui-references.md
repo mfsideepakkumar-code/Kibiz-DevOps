@@ -24,3 +24,11 @@ its layout pattern.
   is re-enabled in Supabase (see P1-05 ACTION REQUIRED in TASKS.md). The
   approved baseline in the meantime is the spec (FR-17.10/ADR-025) + the merged
   implementation at the commit above.
+
+## App shell & theme baseline (2026-06-15)
+
+Stakeholder directed "match the prototype." The global chrome is now the approved baseline:
+- Left **sidebar** app shell (white) with grouped nav (Work / Manage / Insights / Admin), lucide icons, indigo active state; top bar carries the live timer; sign-out in the sidebar footer.
+- **Indigo** primary/accent, white cards on a light cool-gray background, soft card shadows, pill status badges, monospace/tabular time — matching ki-b-iz-dev-ops.vercel.app.
+- All values via design tokens (globals.css); two font weights (400/500) retained; semantic status palette unchanged.
+- This supersedes the earlier "pending" notes for /tickets, /ops-queue, etc. — those screens inherit the approved shell/theme.

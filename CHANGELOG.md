@@ -1,5 +1,7 @@
 # Changelog
 
+- 2026-06-15 · UI · App shell + indigo theme to match the approved prototype: left sidebar (grouped nav + lucide icons, active state), white cards on light-gray surfaces, soft shadows, top-bar timer; all via design tokens. Applied globally to every authenticated screen.
+
 - 2026-06-15 · P1-11 · Timesheets (Gate 2): dev My Timesheets (weekly submit/resubmit) + manager Timesheet Review (approve / flag entries with reason). Migration 0017 (dev draft/rejected→submitted policy + Gate 2 timesheet status guard); week.ts helpers + tests. Full submit/flag/resubmit/approve cycle verified live.
 
 - 2026-06-15 · P1-10 · Goal Sheet / My Day: developer day view (date nav, week strip, capacity/progress, In Progress/Planned/Done buckets, add task, planned-vs-actual, timer start, carry/drop) + manager Team Day grid (capacity bars, exception flags, push-planning). Migrations 0015 (users.daily_capacity_hours default 8) and 0016 (goal_items own-write security fix).
